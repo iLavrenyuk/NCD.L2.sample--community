@@ -17,3 +17,28 @@
     width: 100%;
   }
 }
+
+.feature-bg-1 {
+  background: url(./assets/img/features-1-bg.png) no-repeat right;
+  background-size: contain;
+}
+
+.feature-bg-2 {
+  background: url(./assets/img/features-2-bg.png) no-repeat right;
+  background-size: contain;
+}
+
+.feature-bg-3 {
+  background: url(./assets/img/features-3-bg.png) no-repeat right;
+  background-size: contain;
+}
+
+.feature-bg-4 {
+  background: url(./assets/img/features-4-bg.png) no-repeat right;
+  background-size: contain;
+}
+
+.card-img {
+  background: url(./assets/img/card.png) center no-repeat; 
+  background-size: cover
+}

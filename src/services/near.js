@@ -13,6 +13,16 @@ export const near = new Near({
 
 export const wallet = new WalletConnection(near, 'communite');
 
+export const signIn = (successUrl) => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
+  return wallet.requestSignIn({ contractId: CONTRACT_ID, successUrl });
+};
+
+export const signOut = () => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
+  return wallet.signOut(CONTRACT_ID);
+};
+
 export const getComplaints = () => {
   return wallet.account().viewFunction(CONTRACT_ID, 'getComplaints');
 };
