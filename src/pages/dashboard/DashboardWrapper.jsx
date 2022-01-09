@@ -7,7 +7,7 @@ import { RouterBar } from '../../components/RouterBar';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export const DashboardWrapper = () => {
-  const { accountId, setAccountId } = useStore();
+  const { accountId, setAccountId, searchInput, setSearchInput } = useStore();
 
   const location = useLocation();
 
@@ -39,7 +39,12 @@ export const DashboardWrapper = () => {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-              <input type="text" className="pl-16 h-12 w-96 h-10 rounded-2xl outline-none shadow-2xl" />
+              <input
+                onChange={(e) => setSearchInput(e.target.value)}
+                value={searchInput}
+                type="text"
+                className="pl-16 h-12 w-96 h-10 rounded-2xl outline-none shadow-2xl"
+              />
             </div>
           </div>
         </nav>

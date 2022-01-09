@@ -10,6 +10,7 @@ export const StoreProvider = ({ children }) => {
 
   const [contractData, setContractData] = useState(contractId ?? defaultContractId);
   const [accountId, setAccountId] = useState(wallet.getAccountId());
+  const [searchInput, setSearchInput] = useState('');
   const [apiError, setApiError] = useState();
 
   const setContractId = (contractId) => {
@@ -17,7 +18,16 @@ export const StoreProvider = ({ children }) => {
     setContractData(contractId);
   };
 
-  const store = { contractId: contractData, setContractId, accountId, setAccountId, apiError, setApiError };
+  const store = {
+    contractId: contractData,
+    setContractId,
+    accountId,
+    setAccountId,
+    apiError,
+    setApiError,
+    searchInput,
+    setSearchInput,
+  };
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };

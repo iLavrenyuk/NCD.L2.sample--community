@@ -3,9 +3,10 @@ import { useStore } from '../../store';
 import { alreadyVoted, getComplaints, removeVote, voteComplaint } from '../../services/near';
 
 export const CompliantList = ({ isOwnerTicket }) => {
-  const { accountId, setApiError } = useStore();
+  const { accountId, setApiError, searchInput } = useStore();
 
   const [complaints, setComplaints] = useState();
+  const [displayComplaints, setDisplayComplaints] = useState();
   const [votes, setVotes] = useState();
 
   const handleVoteForComplaint = async (id) => {
@@ -31,11 +32,11 @@ export const CompliantList = ({ isOwnerTicket }) => {
   const getData = useCallback(async () => {
     try {
       const complaintsData = await getComplaints();
-      if (isOwnerTicket) {
-        setComplaints(complaintsData.filter((complaint) => complaint.ticketOwner.match(accountId)));
-      } else {
-        setComplaints(complaintsData);
-      }
+      const ownerComplaints = isOwnerTicket
+        ? complaintsData.filter((complaint) => complaint.ticketOwner.match(accountId))
+        : complaintsData;
+      setComplaints(ownerComplaints);
+      setDisplayComplaints(ownerComplaints);
       setVotes(await alreadyVoted(accountId));
     } catch (e) {
       setApiError(e);
@@ -46,16 +47,56 @@ export const CompliantList = ({ isOwnerTicket }) => {
     getData();
   }, [getData]);
 
+  const searchableColumns = ['title', 'description', 'location'];
+
+  useEffect(() => {
+    if (complaints) {
+      let highlightData = complaints.map((message) => {
+        const highlightText = {};
+        searchableColumns.map((keyColumn) => {
+          highlightText[keyColumn] = message?.[keyColumn].replace(
+            new RegExp(
+              searchInput.replace(/[*[&<$.|^>\\/\]"?()+]/g, (s) => {
+                return '\\' + s;
+              }),
+              'gi'
+            ),
+            (str) => {
+              return str ? `${'<mark>' + str + '</mark>'}` : str;
+            }
+          );
+        });
+        return { ...message, ...highlightText };
+      });
+
+      if (searchInput) {
+        highlightData = highlightData.filter((message, id) =>
+          searchableColumns.some((keyColumn) => message[keyColumn] !== complaints[id][keyColumn])
+        );
+      }
+
+      setDisplayComplaints(highlightData);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchInput]);
+
   return (
     <div className="grid grid-cols-1 gap-x-10 mx-10">
-      {complaints ? (
-        complaints?.map((complaint) => (
+      {displayComplaints?.length ? (
+        displayComplaints?.map((complaint) => (
           <div key={complaint.id} className="rounded-3xl shadow-2xl mt-8 px-6 pt-10 pb-4 card-img">
-            <h3 className="text-xl text-gray-900 font-bold ">{complaint.title}</h3>
+            <h3 className="text-xl text-gray-900 font-bold" dangerouslySetInnerHTML={{ __html: complaint.title }} />
             <h3 className="text-xl text-gray-600 font-medium mt-2">Description:</h3>
-            <p className="text-lg text-gray-900 font-semibold">{complaint.description}</p>
+            <p
+              className="text-lg text-gray-900 font-semibold"
+              dangerouslySetInnerHTML={{ __html: complaint.description }}
+            />
             <h3 className="text-xl text-gray-600 font-medium mt-2">Location:</h3>
-            <p className="text-lg text-gray-900 font-semibold">{complaint.location}</p>
+            <p
+              className="text-lg text-gray-900 font-semibold"
+              dangerouslySetInnerHTML={{ __html: complaint.location }}
+            />
             <div className="flex mt-2">
               <h3 className="text-xl text-gray-600 font-medium">Votes:</h3>
               <p className="text-xl text-gray-900 font-semibold ml-4">{complaint.voteCount}</p>
