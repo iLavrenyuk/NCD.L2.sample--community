@@ -1,5 +1,5 @@
 export const routes = {
   Home: '/',
   Dashboard: '/dashboard',
-  CreateCompliant: '/create-compliant',
+  CreateCompliant: '/dashboard/create-compliant',
 };

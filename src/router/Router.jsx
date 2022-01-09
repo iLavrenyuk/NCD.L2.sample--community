@@ -1,9 +1,11 @@
 import React from 'react';
 import { routes } from './routes';
 import { HomePage } from '../pages/HomePage';
-import { Dashboard } from '../pages/Dashboard';
 import { Route, Routes } from 'react-router-dom';
 import { RequireAuth } from './roles/RequireAuth';
+import { CompliantList } from '../pages/dashboard/CompliantList';
+import { CreateCompliant } from '../pages/dashboard/CreateCompliant';
+import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper';
 
 export const Router = () => {
   return (
@@ -13,10 +15,13 @@ export const Router = () => {
         path={routes.Dashboard}
         element={
           <RequireAuth>
-            <Dashboard />
+            <DashboardWrapper />
           </RequireAuth>
         }
-      />
+      >
+        <Route path={routes.Dashboard} element={<CompliantList />} />
+        <Route path={routes.CreateCompliant} element={<CreateCompliant />} />
+      </Route>
     </Routes>
   );
 };

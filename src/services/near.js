@@ -59,26 +59,6 @@ export const removeVote = (id) => {
   });
 };
 
-// export const voteComplaint = ({id}) => {
-//   console.log(id)
-//   return wallet.account().functionCall({
-//       contractId: CONTRACT_ID,
-//       methodName: "voteComplaint",
-//       gas,
-//       args: {id}
-//   })
-// }
-
-// export const removeVote = ({id}) => {
-//   console.log(id)
-//   return wallet.account().functionCall({
-//       contractId: CONTRACT_ID,
-//       methodName: "removeVote",
-//       gas,
-//       args: {id}
-//   })
-// }
-
 // export const takeComplaint = ({id}) => {
 //   console.log(id)
 //   return wallet.account().functionCall({

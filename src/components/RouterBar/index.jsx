@@ -1,4 +1,5 @@
 import React from 'react';
+import { BarItem } from './BarItem';
 import { Link } from 'react-router-dom';
 import { routes } from '../../router/routes';
 
@@ -11,16 +12,12 @@ export const RouterBar = () => {
         </Link>
       </div>
       <ul className="mt-48">
-        <li className="mt-8 border-r-8 border-purple-500">
-          <Link to={routes.Dashboard} className="block py-2 hover:bg-gray-200">
-            <img src={require('../../assets/img/dashboard.png')} alt="" className="mx-auto" />
-          </Link>
-        </li>
-        <li className="mt-8">
-          <Link to={routes.CreateCompliant} className="block py-2 hover:bg-gray-200">
-            <img src={require('../../assets/img/form.png')} alt="" className="mx-auto" />
-          </Link>
-        </li>
+        <BarItem route={routes.Dashboard}>
+          <img src={require('../../assets/img/dashboard.png')} alt="" className="mx-auto" />
+        </BarItem>
+        <BarItem route={routes.CreateCompliant}>
+          <img src={require('../../assets/img/form.png')} alt="" className="mx-auto" />
+        </BarItem>
       </ul>
     </nav>
   );
