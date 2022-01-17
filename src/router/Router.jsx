@@ -19,7 +19,7 @@ export const Router = () => {
           </RequireAuth>
         }
       >
-        <Route path={routes.Dashboard} element={<CompliantList />} />
+        <Route index element={<CompliantList />} />
         <Route path={routes.CreateCompliant} element={<CreateCompliant />} />
       </Route>
     </Routes>

@@ -3,7 +3,7 @@ import { useStore } from '../../store';
 import { alreadyVoted, getComplaints, removeVote, voteComplaint } from '../../services/near';
 
 export const CompliantList = ({ isOwnerTicket }) => {
-  const { accountId, setApiError, searchInput } = useStore();
+  const { accountId, setApiError, searchInput, contractId } = useStore();
 
   const [complaints, setComplaints] = useState();
   const [displayComplaints, setDisplayComplaints] = useState();
@@ -41,7 +41,8 @@ export const CompliantList = ({ isOwnerTicket }) => {
     } catch (e) {
       setApiError(e);
     }
-  }, [accountId, isOwnerTicket, setApiError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountId, isOwnerTicket, setApiError, contractId]);
 
   useEffect(() => {
     getData();
