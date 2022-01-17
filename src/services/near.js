@@ -1,7 +1,6 @@
 import BN from 'bn.js';
 import { keyStores, Near, WalletConnection } from 'near-api-js';
 
-export const CONTRACT_ID = 'dev-1633929351317-74031669875234';
 const gas = new BN('70000000000000');
 
 export const near = new Near({
@@ -24,15 +23,18 @@ export const signOut = () => {
 };
 
 export const getComplaints = () => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
   return wallet.account().viewFunction(CONTRACT_ID, 'getComplaints');
 };
 
 export const alreadyVoted = (userId) => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
   return wallet.account().viewFunction(CONTRACT_ID, 'hasAlreadyVoted', { accountId: userId });
 };
 
 //function to add new complaint
 export const addNewComplaint = ({ title, description, category, location }) => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
   return wallet.account().functionCall({
     contractId: CONTRACT_ID,
     methodName: 'addNewComplaint',
@@ -43,6 +45,7 @@ export const addNewComplaint = ({ title, description, category, location }) => {
 
 //function to vote
 export const voteComplaint = (id) => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
   return wallet.account().functionCall({
     contractId: CONTRACT_ID,
     methodName: 'voteComplaint',
@@ -52,6 +55,7 @@ export const voteComplaint = (id) => {
 
 //function to remove vote
 export const removeVote = (id) => {
+  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
   return wallet.account().functionCall({
     contractId: CONTRACT_ID,
     methodName: 'removeVote',

@@ -5,6 +5,7 @@ import { signOut } from '../../services/near';
 import { CompliantList } from './CompliantList';
 import { RouterBar } from '../../components/RouterBar';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { ChangeContract } from '../../components/ChangeContract';
 
 export const DashboardWrapper = () => {
   const { accountId, setAccountId, searchInput, setSearchInput } = useStore();
@@ -18,6 +19,8 @@ export const DashboardWrapper = () => {
 
   return (
     <div className="flex" key="0">
+      <ChangeContract />
+
       <div className="page-bg" />
       <RouterBar />
       <main className="block ml-32 mr-auto">
