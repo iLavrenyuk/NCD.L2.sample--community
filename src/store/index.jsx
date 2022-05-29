@@ -9,7 +9,7 @@ export const StoreProvider = ({ children }) => {
   !contractId && localStorage.setItem('CONTRACT_ID', defaultContractId);
 
   const [contractData, setContractData] = useState(contractId ?? defaultContractId);
-  const [accountId, setAccountId] = useState(wallet.getAccountId());
+  const [accountId, setAccountId] = useState(wallet().getAccountId());
   const [searchInput, setSearchInput] = useState('');
   const [apiError, setApiError] = useState();
 

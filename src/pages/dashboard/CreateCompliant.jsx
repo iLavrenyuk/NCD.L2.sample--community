@@ -16,9 +16,13 @@ export const CreateCompliant = () => {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => {
-    const args = { ...data, category: parseInt(data.category) };
-    addNewComplaint(args);
+  const onSubmit = async (data) => {
+    try {
+      const args = { ...data, category: parseInt(data.category) };
+      await addNewComplaint(args);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -26,7 +30,7 @@ export const CreateCompliant = () => {
       className="shadow-2xl rounded-3xl mt-10 ml-10 px-12 py-4"
       style={{ width: '600px', background: 'rgba(255, 255, 255, 0.5)' }}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-10 w-full" submit="handleSubmit" validation-schema="schema">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-10 w-full">
         {formFields.map((field) => (
           <div className="relative mt-8" key={field.id}>
             <h3 className="text-lg font-semibold" htmlFor="field.id">

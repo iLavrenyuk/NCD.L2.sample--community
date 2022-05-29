@@ -1,7 +1,8 @@
 import BN from 'bn.js';
-import { keyStores, Near, WalletConnection } from 'near-api-js';
+import { keyStores, Near, WalletConnection, Contract } from 'near-api-js';
 
 const gas = new BN('70000000000000');
+const getContractID = () => localStorage.getItem('CONTRACT_ID');
 
 export const near = new Near({
   networkId: 'testnet',
@@ -10,63 +11,51 @@ export const near = new Near({
   walletUrl: 'https://wallet.testnet.near.org',
 });
 
-export const wallet = new WalletConnection(near, 'communite');
+export const wallet = () => new WalletConnection(near, getContractID());
 
 export const signIn = (successUrl) => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.requestSignIn({ contractId: CONTRACT_ID, successUrl });
+  return wallet().requestSignIn({ contractId: getContractID(), successUrl });
 };
 
 export const signOut = () => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.signOut(CONTRACT_ID);
+  return wallet().signOut(getContractID());
 };
 
 export const getComplaints = () => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.account().viewFunction(CONTRACT_ID, 'getComplaints');
+  return wallet().account().viewFunction(getContractID(), 'getComplaints');
 };
 
 export const alreadyVoted = (userId) => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.account().viewFunction(CONTRACT_ID, 'hasAlreadyVoted', { accountId: userId });
+  return wallet().account().viewFunction(getContractID(), 'hasAlreadyVoted', { accountId: userId });
 };
+
+// use new Contract for improve wallet.account().functionCall()
+export const contract = () =>
+  new Contract(wallet().account(), getContractID(), {
+    viewMethods: [''],
+    changeMethods: ['addNewComplaint', 'voteComplaint', 'removeVote'],
+    sender: wallet().account(),
+  });
 
 //function to add new complaint
 export const addNewComplaint = ({ title, description, category, location }) => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.account().functionCall({
-    contractId: CONTRACT_ID,
-    methodName: 'addNewComplaint',
-    gas,
-    args: { title, description, category, location },
-  });
+  return contract().addNewComplaint({ title, description, category, location }, gas);
 };
 
 //function to vote
 export const voteComplaint = (id) => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.account().functionCall({
-    contractId: CONTRACT_ID,
-    methodName: 'voteComplaint',
-    args: { id: id },
-  });
+  return contract().voteComplaint({ id });
 };
 
 //function to remove vote
 export const removeVote = (id) => {
-  const CONTRACT_ID = localStorage.getItem('CONTRACT_ID');
-  return wallet.account().functionCall({
-    contractId: CONTRACT_ID,
-    methodName: 'removeVote',
-    args: { id: id },
-  });
+  return contract().removeVote({ id });
 };
 
 // export const takeComplaint = ({id}) => {
 //   console.log(id)
 //   return wallet.account().functionCall({
-//       contractId: CONTRACT_ID,
+//       contractId: getContractID(),
 //       methodName: "takeComplaint",
 //       gas,
 //       args: {id}
@@ -76,7 +65,7 @@ export const removeVote = (id) => {
 // export const finishComplaint = ({id}) => {
 //   console.log(id)
 //   return wallet.account().functionCall({
-//       contractId: CONTRACT_ID,
+//       contractId: getContractID(),
 //       methodName: "finishComplaint",
 //       gas,
 //       args: {id}
