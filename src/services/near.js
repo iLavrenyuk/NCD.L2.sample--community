@@ -21,21 +21,20 @@ export const signOut = () => {
   return wallet().signOut(getContractID());
 };
 
-export const getComplaints = () => {
-  return wallet().account().viewFunction(getContractID(), 'getComplaints');
-};
-
-export const alreadyVoted = (userId) => {
-  return wallet().account().viewFunction(getContractID(), 'hasAlreadyVoted', { accountId: userId });
-};
-
 // use new Contract for improve wallet.account().functionCall()
 export const contract = () =>
   new Contract(wallet().account(), getContractID(), {
-    viewMethods: [''],
+    viewMethods: ['getComplaints', 'hasAlreadyVoted'],
     changeMethods: ['addNewComplaint', 'voteComplaint', 'removeVote'],
     sender: wallet().account(),
   });
+export const getComplaints = () => {
+  return contract().getComplaints();
+};
+
+export const alreadyVoted = (userId) => {
+  return contract().hasAlreadyVoted({ accountId: userId });
+};
 
 //function to add new complaint
 export const addNewComplaint = ({ title, description, category, location }) => {
