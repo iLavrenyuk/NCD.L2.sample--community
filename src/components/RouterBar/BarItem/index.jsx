@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
 
 export const BarItem = ({ route, children }) => {
   const location = useLocation();
