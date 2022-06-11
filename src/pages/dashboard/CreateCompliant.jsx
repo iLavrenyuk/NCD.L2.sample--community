@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { routes } from '../../router/routes';
+import { useNavigate } from 'react-router-dom';
 import { createFormSchema } from '../../validation';
 import { addNewComplaint } from '../../services/near';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,10 +18,13 @@ export const CreateCompliant = () => {
     mode: 'onBlur',
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
       const args = { ...data, category: parseInt(data.category) };
       await addNewComplaint(args);
+      navigate(routes.Dashboard);
     } catch (error) {
       console.log(error);
     }

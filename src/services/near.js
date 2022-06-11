@@ -4,14 +4,14 @@ import { keyStores, Near, WalletConnection, Contract } from 'near-api-js';
 const gas = new BN('70000000000000');
 const getContractID = () => localStorage.getItem('CONTRACT_ID');
 
-export const near = new Near({
+export const config = new Near({
   networkId: 'testnet',
   keyStore: new keyStores.BrowserLocalStorageKeyStore(),
   nodeUrl: 'https://rpc.testnet.near.org',
   walletUrl: 'https://wallet.testnet.near.org',
 });
 
-export const wallet = () => new WalletConnection(near, getContractID());
+export const wallet = () => new WalletConnection(config, getContractID());
 
 export const signIn = (successUrl) => {
   return wallet().requestSignIn({ contractId: getContractID(), successUrl });
@@ -28,6 +28,7 @@ export const contract = () =>
     changeMethods: ['addNewComplaint', 'voteComplaint', 'removeVote'],
     sender: wallet().account(),
   });
+
 export const getComplaints = () => {
   return contract().getComplaints();
 };

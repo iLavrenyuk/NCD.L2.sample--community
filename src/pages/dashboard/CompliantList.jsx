@@ -85,7 +85,7 @@ export const CompliantList = ({ isOwnerTicket }) => {
   return (
     <div className="grid grid-cols-1 gap-x-10 mx-10">
       {displayComplaints?.length ? (
-        displayComplaints?.map((complaint) => (
+        displayComplaints?.reverse()?.map((complaint) => (
           <div key={complaint.id} className="rounded-3xl shadow-2xl mt-8 px-6 pt-10 pb-4 card-img">
             <h3 className="text-xl text-gray-900 font-bold" dangerouslySetInnerHTML={{ __html: complaint.title }} />
             <h3 className="text-xl text-gray-600 font-medium mt-2">Description:</h3>
