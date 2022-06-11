@@ -15,7 +15,7 @@ Any content produced by NEAR, or developer resources that NEAR provides, are for
 
 ## ⚡  Usage
 I recorded a short video in Loom, where I review "what is do" this project
-<a href="https://www.loom.com/share/8e746e6522d9408dbc810bf3e8f88848" target="_blank">UI walkthrough</a>
+<a href="https://www.loom.com/share/56e6e53c6ac54fcf8e98f9559dfaa89f" target="_blank">UI walkthrough</a>
 
 
 To deploy sample--community to your account visit <a href="https://github.com/Learn-NEAR/NCD.L1.sample--Communite" target="_blank">this repo (smart contract deployment instructions are inside):</a> 
@@ -49,7 +49,7 @@ yarn lint
 ## 👀 Code walkthrough for Near university students
 
 I recorded a short video in Loom, where I review the code
-<a href="https://www.loom.com/share/491d800ba7f1420b9a7d756025b560cd" target="_blank">Code walkthrough video</a>
+<a href="https://www.loom.com/share/4ef3ae00c3664606a44f80ea2047fc29" target="_blank">Code walkthrough video</a>
 
 We are using ```near-api-js``` to work with NEAR blockchain. In ``` /services/near.js ``` we are importing classes, functions and configs which we are going to use:
 ```
