@@ -9,5 +9,5 @@ export const createFormSchema = Yup.object({
   title: text,
   description: text,
   location: text,
-  category: Yup.number().positive().integer().required(),
+  category: Yup.number().integer().required(),
 });
