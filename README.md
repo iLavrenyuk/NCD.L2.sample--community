@@ -11,7 +11,7 @@ The goal of this repository is to make it as easy as possible to get started wri
 ## ⚠️ Warning
 Any content produced by NEAR, or developer resources that NEAR provides, are for educational and inspiration purposes only. NEAR does not encourage, induce or sanction the deployment of any such applications in violation of applicable laws or regulations.
 
-![image](https://user-images.githubusercontent.com/48129985/173178780-bb9ae56b-74ae-42a2-8ae4-b94c72aa9f88.png)
+![image](https://user-images.githubusercontent.com/48129985/173186440-95a3077f-b494-46a7-9337-c5cbc441e920.png)
 
 ## ⚡  Usage
 I recorded a short video in Loom, where I review "what is do" this project
